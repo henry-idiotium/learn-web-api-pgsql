@@ -11,7 +11,7 @@ namespace WepA.Helpers
 		{
 			// var (code, message) = ParseError(error);
 			return ErrorBuilder.FromError(error)
-				.SetMessage(error.Message).SetCode(error.Code)
+				.SetMessage(error.Exception.ToString()).SetCode(error.Code)
 				.RemoveException().ClearExtensions()
 				.RemovePath().ClearLocations()
 				.Build();
