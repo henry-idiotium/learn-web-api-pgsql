@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using WepA.GraphQL.Types;
 using WepA.Helpers;
 using WepA.Helpers.ResponseMessages;
@@ -44,7 +43,7 @@ namespace WepA.GraphQL
 			return new();
 		}
 
-		[HotChocolate.AspNetCore.Authorization.Authorize]
+		[Authorize]
 		public async Task<Response<AuthenticateResponse>> RotateAsync(
 			[Service] IUserService userService,
 			TokenRotateRequest request)

@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using HotChocolate;
+using HotChocolate.Types;
 using Mapster;
 
 namespace WepA.Models.Dtos.Token
@@ -12,6 +14,8 @@ namespace WepA.Models.Dtos.Token
 		public string Email { get; set; }
 
 		public string Address { get; set; }
+
+		[GraphQLType(typeof(LocalDateType))]
 		public DateTime? DateOfBirth { get; set; }
 
 		[Required]
