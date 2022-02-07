@@ -23,7 +23,7 @@ namespace WepA.GraphQL
 			return new(response);
 		}
 
-		public async Task<Response<AuthenticateResponse>> MockCreateAsync(
+		public async Task<Response<Inanis>> MockCreateAsync(
 			[Service] IUserService userService,
 			List<CreateUserRequest> request)
 		{
