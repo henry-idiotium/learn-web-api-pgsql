@@ -87,27 +87,24 @@ namespace WepA.Helpers
 
 		public static void AddIdentityExt(this IServiceCollection services, bool isDevelopment)
 		{
-			if (isDevelopment)
+			services.AddIdentity<ApplicationUser, IdentityRole>(_ =>
 			{
-				services.AddIdentity<ApplicationUser, IdentityRole>(_ =>
-				{
-					_.SignIn.RequireConfirmedEmail = false;
-					_.SignIn.RequireConfirmedAccount = false;
-					_.SignIn.RequireConfirmedPhoneNumber = false;
-				})
-				.AddEntityFrameworkStores<WepADbContext>()
-				.AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+				_.SignIn.RequireConfirmedEmail = false;
+				_.SignIn.RequireConfirmedAccount = false;
+				_.SignIn.RequireConfirmedPhoneNumber = false;
+			})
+			.AddEntityFrameworkStores<WepADbContext>()
+			.AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
 
-				services.Configure<IdentityOptions>(_ =>
-				{
-					_.Password.RequireNonAlphanumeric = false;
-					_.Password.RequireUppercase = false;
-					_.Password.RequireLowercase = false;
-					_.Password.RequireDigit = false;
-					_.Password.RequiredLength = 0;
-					_.Password.RequiredUniqueChars = 0;
-				});
-			}
+			services.Configure<IdentityOptions>(_ =>
+			{
+				_.Password.RequireNonAlphanumeric = false;
+				_.Password.RequireUppercase = false;
+				_.Password.RequireLowercase = false;
+				_.Password.RequireDigit = false;
+				_.Password.RequiredLength = 0;
+				_.Password.RequiredUniqueChars = 0;
+			});
 		}
 
 		public static void AddMapsterExt(this IServiceCollection services)
