@@ -31,7 +31,8 @@ namespace WepA
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WepA v1"));
+				app.UseSwaggerUI(_ =>
+					_.SwaggerEndpoint("/swagger/v1/swagger.json", "WepA v1"));
 			}
 			app.UseCors("DevelopmentPolicy");
 
@@ -58,17 +59,15 @@ namespace WepA
 				options.UseSqlServer(Configuration.GetConnectionString("WepA")));
 
 			services.AddIdentityExt(CurrentEnvironment.IsDevelopment());
-			services.AddCorsExt();
-			services.AddMapsterExt();
+			services.AddAuthenticationExt();
 			services.AddDIContainerExt();
+			services.AddOptionPatterns();
+			services.AddMapsterExt();
 			services.AddGraphQLExt();
+			services.AddCorsExt();
 
-			services.Configure<SendGridSettings>(Configuration.GetSection("ExternalProviders:SendGrid"));
-			services.Configure<JwtSettings>(Configuration.GetSection("ServiceSettings:Jwt"));
-			services.Configure<SieveOptions>(Configuration.GetSection("ServiceSettings:Sieve"));
-
-			services.AddControllers()
-					.AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+			services.AddControllers().AddJsonOptions(options =>
+				options.JsonSerializerOptions.WriteIndented = true);
 			services.AddSwaggerExt();
 		}
 	}
