@@ -1,13 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sieve.Models;
-using WepA.Data;
 using WepA.Helpers;
-using WepA.Helpers.Settings;
 using WepA.Middlewares;
 
 namespace WepA
@@ -55,8 +51,7 @@ namespace WepA
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<WepADbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("WepA")));
+			services.AddNpgsqlDbContext();
 
 			services.AddIdentityExt(CurrentEnvironment.IsDevelopment());
 			services.AddAuthenticationExt();
