@@ -15,7 +15,6 @@ namespace WepA.Models.Dtos.Token
 
 		public string Address { get; set; }
 
-		[GraphQLType(typeof(LocalDateType))]
 		public DateTime? DateOfBirth { get; set; }
 
 		[Required]
