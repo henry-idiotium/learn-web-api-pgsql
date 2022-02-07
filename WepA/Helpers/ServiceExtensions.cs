@@ -77,7 +77,7 @@ namespace WepA.Helpers
 
 		public static void AddGraphQLExt(this IServiceCollection services)
 		{
-			services.AddErrorFilter<GraphQLErrorFilter>();
+			// services.AddErrorFilter<GraphQLErrorFilter>();
 			services.AddGraphQLServer()
 					.AddQueryType<Query>()
 					.AddMutationType<Mutation>()

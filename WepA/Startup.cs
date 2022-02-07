@@ -38,7 +38,6 @@ namespace WepA
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-			app.UseJwtExt();
 			app.UseHttpStatusExceptionHandlingExt();
 
 			app.UseEndpoints(endpoints =>
