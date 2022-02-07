@@ -24,7 +24,7 @@ namespace WepA.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] CreateUserRequest model)
+		public async Task<IActionResult> Create(CreateUserRequest model)
 		{
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 			await _userService.CreateAsync(model);
@@ -32,16 +32,15 @@ namespace WepA.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetDetails(string encodedUserId)
+		public async Task<IActionResult> GetDetails(string userId)
 		{
-			var userId = EncryptHelpers.DecodeBase64Url(encodedUserId);
-			var user = await _userService.GetByIdAsync(userId);
+			var decodedUserId = EncryptHelpers.DecodeBase64Url(userId);
+			var user = await _userService.GetByIdAsync(decodedUserId);
 			return Ok(new GenericResponse(user, SuccessResponseMessages.Generic));
 		}
 
-		[AllowAnonymous]
-		[HttpGet]
-		public IActionResult GetList([FromQuery] SieveModel model)
+		[HttpPost]
+		public IActionResult GetList(SieveModel model)
 		{
 			var users = _userService.GetList(model);
 			return Ok(new GenericResponse(users, SuccessResponseMessages.Generic));
@@ -49,7 +48,7 @@ namespace WepA.Controllers
 
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<IActionResult> MockCreate([FromBody] List<CreateUserRequest> models)
+		public async Task<IActionResult> MockCreate(List<CreateUserRequest> models)
 		{
 			await _userService.MockCreateAsync(models);
 			return Ok(new GenericResponse(SuccessResponseMessages.UserRegistered));

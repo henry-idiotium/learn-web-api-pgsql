@@ -116,6 +116,8 @@ namespace WepA.Helpers
 
 			config.NewConfig<ApplicationUser, UserDetailsResponse>()
 				  .Map(dest => dest.Id, src => EncryptHelpers.EncodeBase64Url(src.Id));
+			config.NewConfig<UserDetailsResponse, ApplicationUser>()
+				  .Map(dest => dest.Id, src => EncryptHelpers.DecodeBase64Url(src.Id));
 			config.NewConfig<UserDetailsResponse, UserDetails>()
 				  .Map(dest => dest.DateOfBirth, src => src.DateOfBirthString);
 

@@ -22,8 +22,8 @@ namespace WepA.Controllers
 			_accountService = accountService;
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> Login([FromBody] LoginRequest model)
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginRequest model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState.SelectMany(k => k.Value.Errors));
