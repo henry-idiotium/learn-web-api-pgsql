@@ -9,9 +9,9 @@ namespace WepA.Helpers
 	{
 		public IError OnError(IError error)
 		{
-			var (code, message) = ParseError(error);
+			// var (code, message) = ParseError(error);
 			return ErrorBuilder.FromError(error)
-				.SetMessage(message).SetCode(code)
+				.SetMessage(error.Message).SetCode(error.Code)
 				.RemoveException().ClearExtensions()
 				.RemovePath().ClearLocations()
 				.Build();
