@@ -23,13 +23,11 @@ namespace WepA
 		// HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-				app.UseSwagger();
-				app.UseSwaggerUI(_ =>
-					_.SwaggerEndpoint("/swagger/v1/swagger.json", "WepA v1"));
-			}
+			app.UseDeveloperExceptionPage();
+			app.UseSwagger();
+			app.UseSwaggerUI(_ =>
+				_.SwaggerEndpoint("/swagger/v1/swagger.json", "WepA v1"));
+
 			app.UseCors("DevelopmentPolicy");
 
 			app.UseHttpsRedirection();
@@ -38,6 +36,7 @@ namespace WepA
 			app.UseAuthentication();
 			app.UseAuthorization();
 
+			app.UseJwtExt();
 			app.UseHttpStatusExceptionHandlingExt();
 
 			app.UseEndpoints(endpoints =>
