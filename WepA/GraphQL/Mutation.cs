@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using WepA.GraphQL.Types;
 using WepA.Helpers;
 using WepA.Helpers.ResponseMessages;
@@ -21,6 +23,18 @@ namespace WepA.GraphQL
 			return new(response);
 		}
 
+		public async Task<Response<AuthenticateResponse>> MockCreateAsync(
+			[Service] IUserService userService,
+			List<CreateUserRequest> request)
+		{
+			if (request == null)
+				throw new HttpStatusException(HttpStatusCode.BadRequest,
+											  ErrorResponseMessages.InvalidRequest);
+
+			await userService.MockCreateAsync(request);
+			return new();
+		}
+
 		public async Task<Response<Inanis>> RegisterAsync(
 			[Service] IAccountService accountService,
 			RegisterRequest request)
@@ -29,6 +43,7 @@ namespace WepA.GraphQL
 			return new();
 		}
 
+		[Authorize]
 		public async Task<Response<AuthenticateResponse>> RotateAsync(
 			[Service] IUserService userService,
 			TokenRotateRequest request)
